@@ -186,14 +186,17 @@ default: quantize
 ggml.o: $(CPP_PATH)/ggml.c $(CPP_PATH)/ggml.h
 	$(CC)  $(CFLAGS)   -c $(CPP_PATH)/ggml.c -o ggml.o
 
+llama.o: $(CPP_PATH)/llama.cpp $(CPP_PATH)/llama.h $(CPP_PATH)/llama-util.h
+	$(CXX)  $(CXXFLAGS)   -c $(CPP_PATH)/llama.cpp -o llama.o
+
 utils.o: $(CPP_PATH)/utils.cpp $(CPP_PATH)/utils.h
 	$(CXX) $(CXXFLAGS) -c $(CPP_PATH)/utils.cpp -o utils.o
 
 clean:
 	rm -f *.o quantize
 
-quantize: $(CPP_PATH)/utils.cpp ggml.o utils.o
-	$(CXX) $(CXXFLAGS) $(CPP_PATH)/quantize.cpp ggml.o utils.o -o quantize $(LDFLAGS)
+quantize: $(CPP_PATH)/utils.cpp ggml.o utils.o llama.o
+	$(CXX) $(CXXFLAGS) $(CPP_PATH)/quantize.cpp ggml.o utils.o llama.o -o quantize $(LDFLAGS)
 
 #
 # Tests
