@@ -104,15 +104,15 @@ bool llama_model_load(const std::string & fname, llama_model & model, gpt_vocab 
   }
 
   // verify magic
-  // {
-  //   uint32_t magic;
-  //   fin.read((char *) &magic, sizeof(magic));
-  //   if (magic != 0x67676d6c) {
-  //     *outError = makeLlamaError(LlamaErrorCodeFailedToLoadModel,
-  //                                [NSString stringWithFormat:@"invalid model file '%s' (bad magic)", fname.c_str()]);
-  //     return false;
-  //   }
-  // }
+  {
+    uint32_t magic;
+    fin.read((char *) &magic, sizeof(magic));
+    // if (magic != 0x67676d6c) {
+    //   *outError = makeLlamaError(LlamaErrorCodeFailedToLoadModel,
+    //                              [NSString stringWithFormat:@"invalid model file '%s' (bad magic)", fname.c_str()]);
+    //   return false;
+    // }
+  }
 
   int n_ff = 0;
   int n_parts = 0;
